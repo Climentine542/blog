@@ -29,9 +29,16 @@ const { title, headingId, games, demo } = Astro.props;
 </section>
 
 <style>
-  ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr)); gap: clamp(.75rem, 3vw, 1.6rem); max-width: 60rem; padding: 0; margin: 0; list-style: none; }
-  li { display: flex; flex-direction: column; justify-content: flex-end; gap: .55rem; min-width: 0; max-width: 13rem; }
-  h3 { font-size: 1rem; overflow-wrap: anywhere; }
+  /* 宽屏按较大的海报尺寸排布，同一张封面不会因为某一栏游戏少而被单独拉宽。 */
+  ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 16rem)); gap: clamp(.75rem, 3vw, 1.6rem); padding: 0; margin: 0; list-style: none; }
+  /* 名称即使换行，同一排的封面也保持对齐。 */
+  li { display: flex; flex-direction: column; justify-content: flex-end; gap: .55rem; min-width: 0; }
+  h3 { font-size: 1rem; text-align: center; overflow-wrap: anywhere; }
   /* 封面固定卡片比例；替换不同尺寸的素材时裁切，不拉伸画面。 */
   img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: .5rem; background: #e1e8dc; }
+
+  /* 窄屏保留两列，按可用宽度缩放，名称仍与各自的封面中心对齐。 */
+  @media (max-width: 36rem) {
+    ul { grid-template-columns: repeat(2, minmax(0, 16rem)); }
+  }
 </style>

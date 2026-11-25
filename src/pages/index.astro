@@ -2,11 +2,26 @@
 import RecordArt from '../components/RecordArt.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-/** 首屏下方的三个阅读入口；与顶栏导航使用相同的栏目路径。 */
+/** 首屏下方的栏目入口；路径与顶栏一致，图标路径统一使用 24×24 坐标系。 */
 const sections = [
-  { href: '/learning/', en: 'LEARNING', title: '学习', text: '把容易忘的知识、做法和踩过的坑记在这里。' },
-  { href: '/music/', en: 'MUSIC', title: '音乐', text: '按单曲慢慢听，想换的时候就切到下一首。' },
-  { href: '/games/', en: 'GAMES', title: '游戏', text: '看看最近在玩什么，也翻翻写下的游玩感想。' },
+  {
+    href: '/learning/',
+    title: '学习',
+    text: '把容易忘的知识、做法和踩过的坑记在这里。',
+    iconPath: 'M12 6.5C9.8 4.5 6.8 3.9 3.5 4.6v12.7c3.3-.7 6.3-.1 8.5 1.9 2.2-2 5.2-2.6 8.5-1.9V4.6c-3.3-.7-6.3-.1-8.5 1.9Zm0 0v12.7M6.5 9c1.1-.1 2.1.2 3 .7m-3 3c1.1-.1 2.1.2 3 .7',
+  },
+  {
+    href: '/music/',
+    title: '音乐',
+    text: '按单曲慢慢听，想换的时候就切到下一首。',
+    iconPath: 'M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Zm0 6a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM6.9 10.2a5.4 5.4 0 0 1 3.3-3.3m6.9 6.9a5.4 5.4 0 0 1-3.3 3.3',
+  },
+  {
+    href: '/games/',
+    title: '游戏',
+    text: '看看最近在玩什么，也翻翻写下的游玩感想。',
+    iconPath: 'M7.25 7h9.5c2.3 0 3.6 1.4 4.1 3.7l.8 4c.5 2.5-1.5 3.8-3.2 2.2l-2.1-2h-8.7l-2.1 2c-1.7 1.6-3.7.3-3.2-2.2l.8-4C3.65 8.4 4.95 7 7.25 7ZM7.5 9.5v4m-2-2h4m5.25-.8h.15m2.15 1.45h.15',
+  },
 ];
 ---
 
@@ -24,15 +39,15 @@ const sections = [
   </section>
 
   <section class="places" aria-labelledby="places-title">
-    <div class="places-heading">
-      <h2 id="places-title">从这里逛起</h2>
-      <span class="kicker">THE INDEX</span>
-    </div>
+    <h2 id="places-title">从这里逛起</h2>
     <ul>
       {sections.map((section) => (
         <li>
           <a href={section.href}>
-            <span class="kicker">{section.en}</span>
+            {/* 图标用于辨识栏目，链接名称仍由可见的中文标题和说明提供。 */}
+            <svg class="place-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d={section.iconPath} />
+            </svg>
             <h3>{section.title}</h3>
             <p>{section.text}</p>
           </a>
@@ -43,7 +58,14 @@ const sections = [
 </BaseLayout>
 
 <style>
-  .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: clamp(.8rem, 4vw, 3.25rem); padding-block: clamp(3.5rem, 9vw, 7.25rem) clamp(3rem, 7vw, 5rem); }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(.8rem, 4vw, 3.25rem);
+    /* 背景留白分别封顶，缩短顶栏到首屏、唱片说明到栏目区的距离。 */
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(1.75rem, 3.5vw, 2.75rem);
+  }
   .hero-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
   .hero-kicker span { width: 1.6rem; height: 1px; background: var(--accent); }
   .hero-kicker b, .record b { font-weight: 400; opacity: .65; }
@@ -58,13 +80,14 @@ const sections = [
   .record span { color: var(--accent); font: 600 .875rem var(--mono); letter-spacing: .1em; display: flex; align-items: center; gap: .55rem; }
   .record i { width: .6rem; height: .6rem; display: inline-block; border: 1px solid currentColor; border-radius: 50%; }
   .places { padding-block: 1.5rem clamp(3.5rem, 8vw, 6.5rem); border-top: 1px solid var(--line); }
-  .places-heading { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: baseline; justify-content: space-between; }
   .places h2 { font: 750 1.55rem var(--serif); }
   ul { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   li { border-block: 1px solid var(--line); }
   li + li { border-inline-start: 1px solid var(--line); }
   li a { display: block; height: 100%; padding: 1.4rem clamp(.8rem, 2.5vw, 1.6rem); text-decoration: none; }
   li a:hover { background: var(--white); }
+  /* 沿用首页强调色和统一描边，保持图标的视觉重量低于栏目标题。 */
+  .place-icon { display: block; width: 1.375rem; height: 1.375rem; color: var(--accent); }
   h3 { font: 750 1.4rem var(--serif); margin-block: .55rem .35rem; }
   li p { color: var(--muted); }
   @media (max-width: 43rem) { .hero { grid-template-columns: minmax(0, 1fr); } h1 { font-size: clamp(1.75rem, 9.8vw, 4.25rem); } .record { width: min(100%, 25rem); justify-self: center; } }
