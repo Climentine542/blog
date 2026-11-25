@@ -1,0 +1,93 @@
+---
+/** 一首歌的展示及媒体来源；封面可选，音频地址必须可在浏览器直接访问。 */
+interface MusicTrack {
+  title: string;
+  artist: string;
+  src: string;
+  cover?: string;
+}
+
+/** 歌单按数据文件顺序呈现；为空时给出说明，不输出不可用播放器。 */
+interface Props {
+  tracks: MusicTrack[];
+}
+
+const { tracks } = Astro.props;
+---
+
+{tracks.length ? (
+  <div class="music-layout" data-music-player>
+    <section aria-labelledby="tracks-title">
+      <h2 id="tracks-title">单曲列表</h2>
+      <ol>
+        {tracks.map((track) => (
+          <li>
+            <button type="button" data-track data-source={track.src} data-title={track.title} data-artist={track.artist}>
+              {track.cover
+                ? <img src={track.cover} alt="" width="44" height="44" loading="lazy" />
+                : <span class="mini-record" aria-hidden="true"><i></i></span>}
+              <span class="track-info">
+                <strong>{track.title}</strong>
+                <span>{track.artist}</span>
+              </span>
+              <span class="track-action">选择</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </section>
+    <section class="console" aria-labelledby="player-title">
+      <h2 id="player-title" class="kicker">单曲播放器</h2>
+      <p class="now" data-now-title>还没有选择歌曲</p>
+      <p class="artist" data-now-artist></p>
+      <audio preload="none"></audio>
+      <div class="timeline">
+        <label for="music-time">播放进度</label>
+        <span data-time>00:00 / 00:00</span>
+        <input id="music-time" data-progress type="range" min="0" max="1" step="any" value="0" aria-valuetext="00:00 / 00:00" disabled />
+      </div>
+      <div class="controls">
+        {tracks.length > 1 && <button type="button" data-previous disabled>上一首</button>}
+        <button class="primary" type="button" data-toggle disabled>播放</button>
+        {tracks.length > 1 && <button type="button" data-next disabled>下一首</button>}
+      </div>
+      <p class="status" data-status role="status">选择一首歌后开始播放。</p>
+    </section>
+  </div>
+) : <p class="empty">还没有可播放的单曲。</p>}
+
+<script>
+  import { mountMusicPlayer } from '../lib/music-player';
+
+  // 只在有曲目的页面初始化；没有曲目时无需创建音频或绑定控制。
+  document.querySelectorAll<HTMLElement>('[data-music-player]').forEach(mountMusicPlayer);
+</script>
+
+<style>
+  .music-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: start; }
+  h2 { font: 750 1.45rem var(--serif); margin-block: .35rem 1rem; }
+  ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  li { border-bottom: 1px solid var(--line); }
+  li button { width: 100%; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; text-align: left; padding: .85rem .6rem; background: transparent; color: var(--ink); border: 0; }
+  li button:hover, li button[aria-current] { background: #e5eae1; }
+  .track-info { display: grid; overflow-wrap: anywhere; }
+  .track-info span, .track-action { color: var(--muted); font-size: .875rem; }
+  li button[aria-current] .track-action { color: var(--accent); font-weight: 750; }
+  li img, .mini-record { width: 2.75rem; height: 2.75rem; border-radius: .35rem; object-fit: cover; }
+  .mini-record { display: grid; place-items: center; background: #dfe7db; }
+  .mini-record i { width: 1.65rem; height: 1.65rem; border-radius: 50%; background: radial-gradient(circle, #273e34 7%, #dcad6e 8% 25%, #2f4c40 26% 45%, #81998a 46% 49%, #294236 50%); }
+  .console { background: #e8eee5; border: 1px solid var(--line); border-radius: 1rem; padding: clamp(1rem, 3vw, 1.65rem); }
+  .console h2 { font: 600 .875rem var(--mono); }
+  .now { font: 800 1.45rem/1.35 var(--serif); overflow-wrap: anywhere; }
+  .artist { min-height: 1.4em; font-size: .9375rem; color: var(--muted); }
+  .timeline { display: grid; grid-template-columns: 1fr auto; gap: .25rem; margin-top: 1rem; font-size: .875rem; align-items: center; }
+  [data-time] { font-family: var(--mono); }
+  input { grid-column: 1 / -1; width: 100%; min-width: 0; height: 1.75rem; margin: 0; accent-color: var(--accent); }
+  .controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .controls button { min-height: 2.75rem; border: 1px solid #8fa196; background: var(--white); color: var(--accent); border-radius: .45rem; padding: .3rem .65rem; font-size: .875rem; }
+  .controls .primary { color: var(--white); background: var(--accent); border-color: var(--accent); min-width: 5.2rem; }
+  .controls button:not(:disabled):hover { filter: brightness(.92); }
+  .controls button:disabled { cursor: default; opacity: .7; }
+  .status { min-height: 1.5em; margin-top: .8rem; color: var(--muted); font-size: .875rem; }
+  @media (max-width: 50rem) { .music-layout { grid-template-columns: minmax(0, 1fr); } }
+</style>

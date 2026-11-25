@@ -1,0 +1,19 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { getPublishedArticles } from '../../../lib/articles';
+
+/**
+ * 生成游玩感想的静态详情，不从学习集合或游戏海报推导路由。
+ * @returns 文件标识与文章数据，草稿不生成路由
+ */
+export async function getStaticPaths() {
+  return (await getPublishedArticles('game-notes')).map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<ArticleLayout {article} section="games" />

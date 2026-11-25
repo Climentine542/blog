@@ -1,0 +1,41 @@
+---
+import SiteHeader, { type Section } from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+/** 全站文档外壳所需的标题、页面简介和当前栏目。 */
+interface Props {
+  title: string;
+  description: string;
+  section: Section;
+}
+
+const { title, description, section } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f5ed" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{section === 'home' ? title : `${title} · 缇久年昔`}</title>
+  </head>
+  <body>
+    <SiteHeader section={section} />
+    <main id="main" class="shell" tabindex="-1"><slot /></main>
+    <footer class="shell footer">
+      <strong>缇久年昔</strong>
+      <span>学习、音乐和游戏的私人手记。</span>
+    </footer>
+  </body>
+</html>
+
+<style>
+  body { display: flex; flex-direction: column; }
+  main { flex: 1; }
+  main:focus { outline: none; }
+  .footer { display: flex; flex-wrap: wrap; align-items: baseline; gap: .45rem 1rem; border-top: 1px solid var(--line); padding-block: 1.65rem 2rem; color: var(--muted); font-size: .875rem; }
+  .footer strong { color: var(--ink); }
+</style>

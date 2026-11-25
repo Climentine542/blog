@@ -1,0 +1,15 @@
+/* 正文限制阅读行长；代码块自身可滚动，不撑开移动端页面。 */
+.article { width: min(100%, 47rem); margin-inline: auto; padding-block: clamp(3rem, 8vw, 6rem); overflow-wrap: anywhere; }
+.article-head { display: grid; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 1.75rem; }
+.article-head h1 { font: 800 clamp(2rem, 6vw, 3.8rem)/1.25 var(--serif); }
+.back-link { color: var(--accent); text-underline-offset: .25em; width: fit-content; }
+.article-head .back-link { margin-bottom: .6rem; }
+.article-foot { border-top: 1px solid var(--line); padding-top: 1.5rem; margin-top: 2.5rem; }
+.prose { padding-top: 1.6rem; line-height: 1.85; }
+.prose > * + * { margin-block-start: 1rem; }
+.prose h2, .prose h3 { margin-top: 2rem; font-family: var(--serif); }
+.prose a { color: var(--accent); text-underline-offset: .2em; }
+.prose img { height: auto; border-radius: .35rem; }
+.prose pre { overflow-x: auto; padding: 1rem; border-radius: .5rem; font-size: .9rem; }
+.prose :not(pre) > code { padding: .15em .35em; background: #e5e9df; border-radius: .25rem; }
+.prose blockquote { margin-inline: 0; border-inline-start: .2rem solid var(--line); padding-inline-start: 1rem; color: var(--muted); }

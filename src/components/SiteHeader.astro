@@ -1,0 +1,55 @@
+---
+/** 顶部导航所属栏目；文章详情仍高亮其目录所属栏目。 */
+export type Section = 'home' | 'learning' | 'music' | 'games';
+
+/** 当前页面所属栏目，用于视觉和辅助技术提示。 */
+interface Props {
+  section: Section;
+}
+
+const { section } = Astro.props;
+
+/** 固定的一级入口及顺序；详情页不会插入这里。 */
+const links = [
+  { key: 'home', label: '首页', href: '/' },
+  { key: 'learning', label: '学习', href: '/learning/' },
+  { key: 'music', label: '音乐', href: '/music/' },
+  { key: 'games', label: '游戏', href: '/games/' },
+] as const;
+---
+
+<a class="skip" href="#main">跳到正文</a>
+<header class="shell header">
+  <a class="brand" href="/" aria-label="缇久年昔的博客首页">
+    <svg viewBox="0 0 30 30" width="30" height="30" aria-hidden="true" fill="none">
+      <rect x="1" y="1" width="28" height="28" rx="8" fill="currentColor" />
+      <path d="M7 19c4-10 9-10 15 0M8 22c4-5 9-5 14 0" stroke="#f6f5ed" stroke-width="1.35" stroke-linecap="round" />
+      <circle cx="15" cy="9" r="1.65" fill="#edc480" />
+    </svg>
+    <span>缇久年昔</span>
+  </a>
+  <nav aria-label="主导航">
+    {links.map(({ key, label, href }) => (
+      <a href={href} aria-current={section === key ? (Astro.url.pathname === href ? 'page' : 'location') : undefined}>
+        {label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .header { min-height: 5.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--line); }
+  .brand { display: inline-flex; align-items: center; gap: .55rem; font-weight: 750; color: var(--accent); text-decoration: none; white-space: nowrap; }
+  nav { display: flex; gap: clamp(.7rem, 3vw, 2rem); }
+  nav a { display: grid; min-height: 2.75rem; place-items: center; color: var(--muted); font-size: .9375rem; text-decoration: none; white-space: nowrap; }
+  nav a:hover, nav a[aria-current] { color: var(--ink); text-decoration: underline; text-underline-offset: .48em; }
+  nav a[aria-current] { font-weight: 750; }
+  .skip { position: absolute; top: .6rem; left: .6rem; z-index: 3; background: var(--white); padding: .45rem .75rem; transform: translateY(-150%); }
+  .skip:focus { transform: none; }
+  @media (max-width: 24rem) {
+    .header { min-height: 4.25rem; gap: .5rem; }
+    .brand { font-size: .875rem; gap: .3rem; }
+    .brand svg { width: 1.3rem; height: 1.3rem; }
+    nav { gap: .55rem; }
+  }
+</style>

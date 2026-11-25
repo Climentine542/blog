@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270">
+  <title>打开的笔记</title>
+  <rect width="720" height="270" rx="18" fill="#e1e8dc"/>
+  <path d="M359 80c-44-31-99-36-164-18v136c71-20 119-13 164 14 45-27 93-34 164-14V62c-65-18-120-13-164 18z" fill="#fcfbf5" stroke="#5a7867" stroke-width="3"/>
+  <path d="M359 80v132m-135-112c42-9 73-5 105 9m-105 15c42-9 73-5 105 9m-105 15c42-9 73-5 105 9m63-48c32-14 63-18 105-9m-105 33c32-14 63-18 105-9" fill="none" stroke="#81998a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="475" cy="164" r="13" fill="#dfb576"/>
+</svg>

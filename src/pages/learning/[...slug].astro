@@ -1,0 +1,19 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getPublishedArticles } from '../../lib/articles';
+
+/**
+ * 生成学习文章的静态详情页。
+ * @returns 文件标识与文章数据，草稿不生成路由
+ */
+export async function getStaticPaths() {
+  return (await getPublishedArticles('learning')).map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<ArticleLayout {article} section="learning" />

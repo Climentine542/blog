@@ -1,0 +1,43 @@
+---
+import { articleDate, type Article } from '../lib/articles';
+
+/** 文章目录数据与本栏目的详情路径；不在组件内混查两套文章。 */
+interface Props {
+  articles: Article[];
+  base: '/learning/' | '/games/notes/';
+  empty: string;
+}
+
+const { articles, base, empty } = Astro.props;
+---
+
+{articles.length ? (
+  <ul>
+    {articles.map(({ id, data }) => {
+      const date = articleDate(data.published);
+      return (
+        <li>
+          <a class="entry" href={`${base}${id}/`}>
+            <span class="body">
+              <strong>{data.title}</strong>
+              {data.description && <span class="summary">{data.description}</span>}
+            </span>
+            <time datetime={date}>{date}</time>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+) : <p class="empty">{empty}</p>}
+
+<style>
+  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  li { border-bottom: 1px solid var(--line); }
+  .entry { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; justify-content: space-between; align-items: baseline; padding: 1.15rem .6rem; text-decoration: none; }
+  .entry:hover { background: var(--white); }
+  .entry:hover strong { text-decoration: underline; text-underline-offset: .25em; }
+  .body { display: grid; gap: .25rem; }
+  strong { font-size: 1.15rem; }
+  .summary, time { color: var(--muted); }
+  time { font: .875rem var(--mono); }
+</style>

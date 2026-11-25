@@ -1,0 +1,10 @@
+{
+  "demo": true,
+  "recent": [
+    { "name": "潜渊症", "cover": "/media/games/deep-sea.svg" },
+    { "name": "星露谷物语", "cover": "/media/games/valley.svg" }
+  ],
+  "favorites": [
+    { "name": "示例游戏", "cover": "/media/games/highland.svg" }
+  ]
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360">
+  <title>山谷示意海报</title>
+  <path fill="#e4c898" d="M0 0h240v360H0z"/>
+  <circle cx="168" cy="90" r="32" fill="#f5e1b2"/>
+  <path d="m0 174 72-88 64 61 48-40 56 65v188H0z" fill="#799381"/>
+  <path d="M0 196c63-47 116-60 240-7v171H0z" fill="#4d7360"/>
+  <path d="M0 252c43-63 102-60 205-25l35-4v137H0z" fill="#395b50"/>
+  <path d="M72 360c-8-48 39-60 90-75 21-6 31-16 22-35 17 16 14 29-10 40-42 18-60 34-50 70z" fill="#c9a97f"/>
+  <path d="M116 208v34h51v-34l-26-23z" fill="#f3d4a2"/>
+  <path d="m108 211 33-31 34 31" fill="none" stroke="#844f43" stroke-width="8"/>
+  <rect x="138" y="224" width="11" height="18" fill="#895b45"/>
+  <rect x="9" y="9" width="222" height="342" rx="7" fill="none" stroke="#fcf5df" opacity=".65"/>
+</svg>

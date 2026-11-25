@@ -1,0 +1,34 @@
+---
+import { render } from 'astro:content';
+import { articleDate, type Article } from '../lib/articles';
+import BaseLayout from './BaseLayout.astro';
+import '../styles/article.css';
+
+/** 文章正文与栏目归属；返回地址根据归属唯一确定。 */
+interface Props {
+  article: Article;
+  section: 'learning' | 'games';
+}
+
+const { article, section } = Astro.props;
+const { title, description, published } = article.data;
+const { Content } = await render(article);
+const date = articleDate(published);
+// 游戏感想返回同一游戏页的感想目录，不指向任何单独游戏。
+const back = section === 'learning'
+  ? { href: '/learning/', label: '返回学习目录' }
+  : { href: '/games/#notes', label: '返回游玩感想目录' };
+---
+
+<BaseLayout {title} description={description || title} {section}>
+  <article class="article">
+    <header class="article-head">
+      <a class="back-link" href={back.href}>{back.label}</a>
+      <time class="kicker" datetime={date}>{date}</time>
+      <h1>{title}</h1>
+      {description && <p class="muted">{description}</p>}
+    </header>
+    <div class="prose"><Content /></div>
+    <footer class="article-foot"><a class="back-link" href={back.href}>{back.label}</a></footer>
+  </article>
+</BaseLayout>

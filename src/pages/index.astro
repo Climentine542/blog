@@ -1,0 +1,72 @@
+---
+import RecordArt from '../components/RecordArt.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+/** 首屏下方的三个阅读入口；与顶栏导航使用相同的栏目路径。 */
+const sections = [
+  { href: '/learning/', en: 'LEARNING', title: '学习', text: '把容易忘的知识、做法和踩过的坑记在这里。' },
+  { href: '/music/', en: 'MUSIC', title: '音乐', text: '按单曲慢慢听，想换的时候就切到下一首。' },
+  { href: '/games/', en: 'GAMES', title: '游戏', text: '看看最近在玩什么，也翻翻写下的游玩感想。' },
+];
+---
+
+<BaseLayout title="缇久年昔的个人博客" description="缇久年昔的个人博客，记录学习、音乐和游戏。" section="home">
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="kicker hero-kicker"><span></span> PERSONAL NOTES <b>/</b> 个人手记</p>
+      <h1 id="home-title"><span>爱编程，爱技术，</span><br /><em>更爱生活。</em></h1>
+      <p class="intro">我是缇久年昔，软件工程专业大三在读。平时写点代码，闲下来听歌、打游戏。学过的东西怕忘，喜欢的东西也怕忘，所以有了这里。</p>
+    </div>
+    <a class="record" href="/music/" aria-label="打开音乐页">
+      <RecordArt />
+      <span><i></i> 唱片一面 <b>/</b> SIDE A</span>
+    </a>
+  </section>
+
+  <section class="places" aria-labelledby="places-title">
+    <div class="places-heading">
+      <h2 id="places-title">从这里逛起</h2>
+      <span class="kicker">THE INDEX</span>
+    </div>
+    <ul>
+      {sections.map((section) => (
+        <li>
+          <a href={section.href}>
+            <span class="kicker">{section.en}</span>
+            <h3>{section.title}</h3>
+            <p>{section.text}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: clamp(.8rem, 4vw, 3.25rem); padding-block: clamp(3.5rem, 9vw, 7.25rem) clamp(3rem, 7vw, 5rem); }
+  .hero-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
+  .hero-kicker span { width: 1.6rem; height: 1px; background: var(--accent); }
+  .hero-kicker b, .record b { font-weight: 400; opacity: .65; }
+  h1 { margin-block: 1.1rem 1.5rem; font: 900 clamp(1.9rem, 5.35vw, 4.85rem)/1.23 var(--serif); letter-spacing: -.06em; }
+  /* 两行题字按交接文案断行；窄屏先缩字号，避免把第一句拆散。 */
+  h1 span { white-space: nowrap; }
+  h1 em { color: var(--accent); font-style: normal; }
+  .intro { color: var(--muted); max-width: 30rem; font-size: 1.05rem; line-height: 1.9; }
+  .record { display: grid; place-items: center; position: relative; text-decoration: none; }
+  .record > :global(svg) { transition: transform .22s ease; }
+  .record:hover > :global(svg) { transform: translateY(-.3rem); }
+  .record span { color: var(--accent); font: 600 .875rem var(--mono); letter-spacing: .1em; display: flex; align-items: center; gap: .55rem; }
+  .record i { width: .6rem; height: .6rem; display: inline-block; border: 1px solid currentColor; border-radius: 50%; }
+  .places { padding-block: 1.5rem clamp(3.5rem, 8vw, 6.5rem); border-top: 1px solid var(--line); }
+  .places-heading { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: baseline; justify-content: space-between; }
+  .places h2 { font: 750 1.55rem var(--serif); }
+  ul { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  li { border-block: 1px solid var(--line); }
+  li + li { border-inline-start: 1px solid var(--line); }
+  li a { display: block; height: 100%; padding: 1.4rem clamp(.8rem, 2.5vw, 1.6rem); text-decoration: none; }
+  li a:hover { background: var(--white); }
+  h3 { font: 750 1.4rem var(--serif); margin-block: .55rem .35rem; }
+  li p { color: var(--muted); }
+  @media (max-width: 43rem) { .hero { grid-template-columns: minmax(0, 1fr); } h1 { font-size: clamp(1.75rem, 9.8vw, 4.25rem); } .record { width: min(100%, 25rem); justify-self: center; } }
+  @media (max-width: 32rem) { ul { grid-template-columns: 1fr; } li + li { border-inline: 0; border-top: 0; } }
+</style>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360">
+  <title>深海示意海报</title>
+  <defs>
+    <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#284f59"/><stop offset="1" stop-color="#102b39"/></linearGradient>
+  </defs>
+  <path fill="url(#sea)" d="M0 0h240v360H0z"/>
+  <path d="M0 82q65-27 127-5t113-9M0 96q65-27 127-5t113-9M0 114q65-27 127-5t113-9" fill="none" stroke="#91b9af" opacity=".45"/>
+  <circle cx="174" cy="207" r="52" fill="none" stroke="#8fb3a9" stroke-dasharray="2 6" opacity=".65"/>
+  <path d="m151 199 86-49 3 105z" fill="#a9c9b0" opacity=".22"/>
+  <rect x="41" y="186" width="124" height="35" rx="17" fill="#9fbfaf"/>
+  <path d="M82 186v-15h38v15M46 202H23" fill="none" stroke="#9fbfaf" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="144" cy="203" r="7" fill="#edc480"/>
+  <path d="m0 327 49-29 39 17 39-42 30 22 45-24 38 26v63H0z" fill="#13232e"/>
+  <rect x="9" y="9" width="222" height="342" rx="7" fill="none" stroke="#b4cbbd" opacity=".38"/>
+</svg>

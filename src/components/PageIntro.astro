@@ -1,0 +1,22 @@
+---
+/** 栏目页统一的栏目标识、主标题与一句说明。 */
+interface Props {
+  kicker: string;
+  title: string;
+  description: string;
+}
+
+const { kicker, title, description } = Astro.props;
+---
+
+<header class="intro">
+  <p class="kicker">{kicker}</p>
+  <h1>{title}</h1>
+  <p class="muted description">{description}</p>
+</header>
+
+<style>
+  .intro { padding-block: clamp(3rem, 10vw, 7rem) clamp(1.8rem, 5vw, 3.4rem); border-bottom: 1px solid var(--line); }
+  h1 { font: 800 clamp(2.8rem, 8vw, 5.3rem)/1.12 var(--serif); margin-block: .65rem .8rem; }
+  .description { max-width: 42rem; }
+</style>

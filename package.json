@@ -1,0 +1,17 @@
+{
+  "name": "blog-myself",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node --test",
+    "demo:audio": "node scripts/generate-demo-audio.ts"
+  },
+  "dependencies": { "astro": "7.3.2" },
+  "devDependencies": { "@astrojs/check": "^0.9.4", "@types/node": "^24.0.0", "typescript": "^5.9.3" }
+}

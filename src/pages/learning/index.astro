@@ -1,0 +1,18 @@
+---
+import { getPublishedArticles } from '../../lib/articles';
+import ArticleList from '../../components/ArticleList.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+/** 学习目录只读取学习集合；静态构建时生成文章列表。 */
+const articles = await getPublishedArticles('learning');
+const description = '学习笔记和技术文章。留给下次需要时翻一翻。';
+---
+
+<BaseLayout title="学习" {description} section="learning">
+  <PageIntro kicker="LEARNING / 笔记" title="学习" {description} />
+  <section class="section" aria-labelledby="learning-title">
+    <h2 id="learning-title">学习笔记 / 技术文章</h2>
+    <ArticleList {articles} base="/learning/" empty="还没有发布学习笔记。" />
+  </section>
+</BaseLayout>

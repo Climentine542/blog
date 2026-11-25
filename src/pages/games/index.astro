@@ -1,0 +1,27 @@
+---
+import ArticleList from '../../components/ArticleList.astro';
+import GameShelf from '../../components/GameShelf.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import games from '../../data/games.json';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedArticles } from '../../lib/articles';
+
+/** 游玩感想独立读取 Markdown，不依赖上方两组海报数据。 */
+const articles = await getPublishedArticles('game-notes');
+const description = '把最近在玩的、喜欢的，和玩过之后想写的东西分开放。';
+---
+
+<BaseLayout title="游戏" {description} section="games">
+  <PageIntro kicker="GAMES / 清单" title="游戏" {description} />
+  {games.demo && <p class="demo muted">当前游戏名单和插画仅作排版示例。</p>}
+  <GameShelf title="最近在玩" headingId="recent-games" games={games.recent} demo={games.demo} />
+  <GameShelf title="最喜欢的游戏" headingId="favorite-games" games={games.favorites} demo={games.demo} />
+  <section class="section" id="notes" aria-labelledby="notes-title">
+    <h2 id="notes-title">游玩感想</h2>
+    <ArticleList {articles} base="/games/notes/" empty="还没有发布游玩感想。" />
+  </section>
+</BaseLayout>
+
+<style>
+  .demo { margin-top: 1rem; }
+</style>

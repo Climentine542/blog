@@ -1,0 +1,37 @@
+---
+/** 单张海报只表达游戏名称与封面，不带游玩状态或文章关联。 */
+interface GameCover {
+  name: string;
+  cover: string;
+}
+
+/** 一个可独立维护的游戏海报区块。 */
+interface Props {
+  title: string;
+  headingId: string;
+  games: GameCover[];
+  demo: boolean;
+}
+
+const { title, headingId, games, demo } = Astro.props;
+---
+
+<section class="section" aria-labelledby={headingId}>
+  <h2 id={headingId}>{title}</h2>
+  {games.length ? <ul>
+    {games.map(({ name, cover }) => (
+      <li>
+        <h3>{name}</h3>
+        <img src={cover} alt={demo ? `${name}的示意海报` : `${name}的封面`} width="240" height="360" loading="lazy" />
+      </li>
+    ))}
+  </ul> : <p class="empty">这一栏还没有添加游戏。</p>}
+</section>
+
+<style>
+  ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr)); gap: clamp(.75rem, 3vw, 1.6rem); max-width: 60rem; padding: 0; margin: 0; list-style: none; }
+  li { display: flex; flex-direction: column; justify-content: flex-end; gap: .55rem; min-width: 0; max-width: 13rem; }
+  h3 { font-size: 1rem; overflow-wrap: anywhere; }
+  /* 封面固定卡片比例；替换不同尺寸的素材时裁切，不拉伸画面。 */
+  img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: .5rem; background: #e1e8dc; }
+</style>
