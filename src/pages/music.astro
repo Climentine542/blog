@@ -2,10 +2,10 @@
 import MusicPlayer from '../components/MusicPlayer.astro';
 import PageIntro from '../components/PageIntro.astro';
 import tracks from '../data/music.json';
+import { sectionDescriptions } from '../data/section-descriptions';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-/** 单曲信息来自清单，页面不维护第二套歌名或地址。 */
-const description = '按单曲收录，想听哪一首，就点哪一首。';
+const description = sectionDescriptions.music;
 ---
 
 <BaseLayout title="音乐" {description} section="music">

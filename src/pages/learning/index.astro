@@ -2,11 +2,12 @@
 import { getPublishedArticles } from '../../lib/articles';
 import ArticleList from '../../components/ArticleList.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import { sectionDescriptions } from '../../data/section-descriptions';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 /** 学习目录只读取学习集合；静态构建时生成文章列表。 */
 const articles = await getPublishedArticles('learning');
-const description = '学习笔记和技术文章。留给下次需要时翻一翻。';
+const description = sectionDescriptions.learning;
 ---
 
 <BaseLayout title="学习" {description} section="learning">

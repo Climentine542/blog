@@ -16,7 +16,8 @@ const { kicker, title, description } = Astro.props;
 </header>
 
 <style>
-  .intro { padding-block: clamp(3rem, 10vw, 7rem) clamp(1.8rem, 5vw, 3.4rem); border-bottom: 1px solid var(--line); }
+  /* 缩短导航到标题、简介到分隔线的距离；窄屏仍保留必要的呼吸空间。 */
+  .intro { padding-block: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 2.5vw, 1.6rem); border-bottom: 1px solid var(--line); }
   h1 { font: 800 clamp(2.8rem, 8vw, 5.3rem)/1.12 var(--serif); margin-block: .65rem .8rem; }
   .description { max-width: 42rem; }
 </style>
