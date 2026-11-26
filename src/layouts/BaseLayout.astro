@@ -10,6 +10,9 @@ interface Props {
 }
 
 const { title, description, section } = Astro.props;
+
+/** 仅三个一级栏目页沿用初版留白，不影响首页和归属同栏目的文章详情。 */
+const usesInitialShell = ['/learning/', '/music/', '/games/'].includes(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -22,7 +25,7 @@ const { title, description, section } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{section === 'home' ? title : `${title} · 缇久年昔`}</title>
   </head>
-  <body>
+  <body class:list={{ 'initial-shell-margins': usesInitialShell }}>
     <SiteHeader section={section} />
     <main id="main" class="shell" tabindex="-1"><slot /></main>
     <footer class="shell footer">

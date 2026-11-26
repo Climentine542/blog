@@ -33,6 +33,8 @@ h1, h2, h3 { line-height: 1.2; }
   width: min(100% - 1.875rem, calc(37.5% + var(--shell-reference-width) * .625));
   margin-inline: auto;
 }
+/* 一级栏目页恢复初版 72rem 宽度上限，页头、正文与页脚使用相同边距。 */
+.initial-shell-margins .shell { width: min(100% - 3rem, 72rem); }
 .kicker {
   color: var(--accent);
   font: 600 .875rem/1.45 var(--mono);
@@ -42,10 +44,13 @@ h1, h2, h3 { line-height: 1.2; }
 .empty { border-block: 1px solid var(--line); padding: 1.2rem 0; color: var(--muted); }
 .section { margin-block: clamp(2.75rem, 7vw, 5.5rem); }
 .section h2 { font: 700 clamp(1.55rem, 3vw, 2.1rem)/1.3 var(--serif); margin-bottom: 1.1rem; }
+/* 仅缩短一级栏目首个内容区的上边距，其余内容区仍保留原有间距。 */
+.initial-shell-margins #main > :nth-child(1 of .section) { margin-block-start: clamp(1.25rem, 3vw, 2.25rem); }
 
-/* 手机端同样保留原 1rem 的 5/8，给正文和链接留出适当的边缘空间。 */
+/* 手机端保留两套边距：一般页面每侧 0.625rem，三个一级栏目页恢复每侧 1rem。 */
 @media (max-width: 32rem) {
   .shell { width: calc(100% - 1.25rem); }
+  .initial-shell-margins .shell { width: calc(100% - 2rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
